@@ -17,4 +17,8 @@ public interface SecurityDao extends CrudRepository <Security,Integer> {
   @Transactional
   @Query(value = "DELETE FROM `security` WHERE `id`=:id",nativeQuery = true)
   void deleteSecurity(@Param("id")Integer id);
+  @Query(value = "SELECT `id`, `address`, `cpassword`, `email`, `name`, `password`, `phone`, `scode`, `username` FROM `security` WHERE `id`=:id",nativeQuery = true)
+  List<Security> Viewsecurityprofile(@Param("id") Integer id);
+  @Query(value="SELECT `id`, `address`, `cpassword`, `email`, `name`, `password`, `phone`, `scode`, `username` FROM `security` WHERE `email`=:email AND `password`=:password",nativeQuery = true)
+  List<Security> SecurityLogin(@Param("email") String email, @Param("password") String password);
 }
