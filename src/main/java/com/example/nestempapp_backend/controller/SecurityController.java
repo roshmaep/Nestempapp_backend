@@ -29,10 +29,21 @@ public class SecurityController {
         return(List<Security>) dao.findAll();
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/search",consumes = "application/json",produces = "application/json")
+    @PostMapping(path = "/securitysearch",consumes = "application/json",produces = "application/json")
     public List<Security> SearchSecurity(@RequestBody Security s)
     {
         return (List<Security>) dao.SearchSecurity(s.getScode());
+
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/deletesecurity",consumes = "application/json",produces = "application/json")
+    public HashMap<String, String> delete(@RequestBody Security x){
+        String id=String.valueOf(x.getId());
+        System.out.println(id);
+        dao.deleteSecurity(x.getId());
+        HashMap <String,String> map =new HashMap<>();
+        map.put("status","success");
+        return map;
 
     }
 
