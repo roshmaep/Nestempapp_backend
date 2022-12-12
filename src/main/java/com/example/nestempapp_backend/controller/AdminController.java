@@ -19,6 +19,7 @@ public class AdminController {
     public HashMap<String, String> EmployeeAdd(@RequestBody Admin a) {
         dao.save(a);
         HashMap<String, String> status = new HashMap<>();
+        status.put("id",String.valueOf(a.getId()));
         status.put("status", "success");
         return status;
 
@@ -66,6 +67,12 @@ public class AdminController {
         }
         return st;
     }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/viewprofile",consumes = "application/json",produces = "application/json")
+    public List<Admin> ViewProfile(@RequestBody Admin v){
+        return (List<Admin>) dao.viewProfile(v.getId());
+    }
+
 
 
 }

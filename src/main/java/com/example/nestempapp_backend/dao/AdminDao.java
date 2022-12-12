@@ -16,7 +16,9 @@ List<Admin>SearchProduct(@Param("empcode") Integer empcode);
 @Transactional
 @Query(value = "DELETE FROM `employee` WHERE `id`=:id",nativeQuery = true)
 void deleteEmp(@Param("id")Integer id);
-@Query(value = "SELECT `id`, `address`, `cpassword`, `designation`, `email`, `empcode`, `name`, `password`, `phone`, `username` FROM `employee` WHERE `email`:=email AND `password`=:password",nativeQuery = true)
+@Query(value = "SELECT `id`, `address`, `cpassword`, `designation`, `email`, `empcode`, `name`, `password`, `phone`, `username` FROM `employee` WHERE `email`=:email AND `password`=:password",nativeQuery = true)
 List<Admin> EmpLogin(@Param("email") String email, @Param("password") String password);
+@Query(value = "SELECT `id`, `address`, `cpassword`, `designation`, `email`, `empcode`, `name`, `password`, `phone`, `username` FROM `employee` WHERE `id`=:id",nativeQuery = true)
+List<Admin> viewProfile(@Param("id") Integer id);
 }
 
