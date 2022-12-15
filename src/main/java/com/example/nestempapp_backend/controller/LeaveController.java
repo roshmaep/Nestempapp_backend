@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,33 +18,37 @@ public class LeaveController {
 private LeaveDao dao;
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/addleaves",consumes = "application/json",produces = "application/json")
-    public  String addLeave(@RequestBody Leaves lm){
+    public  Map<String,String> addLeave(@RequestBody Leaves lm){
         DateTimeFormatter dt=DateTimeFormatter.ofPattern("dd:MM:yyyy HH:mm:ss");
         LocalDateTime now=LocalDateTime.now();
         String currentdate=String.valueOf((dt.format(now)));
         lm.setApplyDate(currentdate);
-
         dao.save(lm);
-        return "{status:'success'}";
+        HashMap<String,String> map=new HashMap<>();
+        map.put("status","success");
+        return map;
     }
 
     @Transactional
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/updatestatus",consumes = "application/json",produces = "application/json")
-    public String updateStatus(@RequestBody Leaves lm){
-        dao.updateById(lm.getStatus(),lm.getId());
-        return "{status:'success'}";
-    }
-    @CrossOrigin(origins = "*")
-    @GetMapping("/viewallleaves")
-    public List<Map<String ,String>> viewallleaves(){
-        return (List<Map<String, String>>) dao.viewAllLeaveBy();
+    public Map<String,String> updateStatus(@RequestBody Leaves lm){
+        dao.updateById(lm.getStatus(),lm.getEmpId());
+        HashMap<String,String> map=new HashMap<>();
+        map.put("status","success");
+        return map;
 
     }
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/viewleavesbyempid",consumes = "application/json",produces = "application/json")
-    public  List<Map<String,String>> viewLeavesById(@RequestBody Leaves lm){
-        return (List<Map<String, String>>) dao.viewLeaveById(lm.getEmpcode());
+    @GetMapping("/viewallleaves")
+    public List<Map<String,String>> viewallleaves(){
+        return (List<Map<String, String>>) dao.viewAllLeaveBy();
+
     }
+//    @CrossOrigin(origins = "*")
+//    @PostMapping(path = "/viewleavesbyempid",consumes = "application/json",produces = "application/json")
+//    public  List<Map<String,String>> viewLeavesById(@RequestBody Leaves lm){
+//        return (List<Map<String, String>>) dao.viewLeaveById(lm.getEmpcode());
+//    }
 
 }

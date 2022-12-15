@@ -11,23 +11,25 @@ public class Leaves {
     @Id
     @GeneratedValue
     private int id;
-    private int empcode;
+    private int empId;
     private String type;
-    private String discrip;
+    private String remarks;
+    private String fromDate;
+    private String toDate;
     private String applyDate;
-    private String leaveDate;
     private int status;
 
     public Leaves() {
     }
 
-    public Leaves(int id, int empcode, String type, String discrip, String applyDate, String leaveDate, int status) {
+    public Leaves(int id, int empId, String type, String remarks, String fromDate, String toDate, String applyDate, int status) {
         this.id = id;
-        this.empcode = empcode;
+        this.empId = empId;
         this.type = type;
-        this.discrip = discrip;
+        this.remarks = remarks;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
         this.applyDate = applyDate;
-        this.leaveDate = leaveDate;
         this.status = status;
     }
 
@@ -39,12 +41,12 @@ public class Leaves {
         this.id = id;
     }
 
-    public int getEmpcode() {
-        return empcode;
+    public int getEmpId() {
+        return empId;
     }
 
-    public void setEmpcode(int empcode) {
-        this.empcode = empcode;
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
     public String getType() {
@@ -55,12 +57,28 @@ public class Leaves {
         this.type = type;
     }
 
-    public String getDiscrip() {
-        return discrip;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setDiscrip(String discrip) {
-        this.discrip = discrip;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     public String getApplyDate() {
@@ -69,14 +87,6 @@ public class Leaves {
 
     public void setApplyDate(String applyDate) {
         this.applyDate = applyDate;
-    }
-
-    public String getLeaveDate() {
-        return leaveDate;
-    }
-
-    public void setLeaveDate(String leaveDate) {
-        this.leaveDate = leaveDate;
     }
 
     public int getStatus() {
