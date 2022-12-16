@@ -39,16 +39,40 @@ private LeaveDao dao;
         return map;
 
     }
-    @CrossOrigin(origins = "*")
-    @GetMapping("/viewallleaves")
-    public List<Map<String,String>> viewallleaves(){
-        return (List<Map<String, String>>) dao.viewAllLeaveBy();
-
-    }
+//    @CrossOrigin(origins = "*")
+//    @GetMapping("/viewallleaves")
+//    public List<Map<String,String>> viewallleaves(){
+//        return (List<Map<String, String>>) dao.viewAllLeaveBy();
+//
+//    }
 //    @CrossOrigin(origins = "*")
 //    @PostMapping(path = "/viewleavesbyempid",consumes = "application/json",produces = "application/json")
 //    public  List<Map<String,String>> viewLeavesById(@RequestBody Leaves lm){
 //        return (List<Map<String, String>>) dao.viewLeaveById(lm.getEmpcode());
 //    }
+@CrossOrigin(origins = "*")
+@GetMapping(path = "/viewAllLeaves")
+public List<Leaves> viewAllLeave()
+{
+    return (List<Leaves>) dao.findAll();
+}
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/accept",consumes = "application/json",produces = "application/json")
+    public Map<String,String> AcceptLeave(@RequestBody Leaves l)
+    {
+        dao.AcceptLeave(l.getEmpId());
+        HashMap<String,String> map=new HashMap<>();
+        map.put("status","success");
+
+        return map;
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/searchstatus",consumes = "application/json",produces = "application/json")
+    public List<Leaves> SearchStatus(@RequestBody Leaves l)
+    {
+        String empid=String.valueOf(l.getEmpId());
+        System.out.println(empid);
+        return (List<Leaves>) dao.SearchStatus(l.getEmpId());
+    }
 
 }
