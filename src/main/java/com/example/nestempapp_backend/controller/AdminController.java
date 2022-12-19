@@ -1,11 +1,16 @@
 package com.example.nestempapp_backend.controller;
 
 import com.example.nestempapp_backend.dao.AdminDao;
+import com.example.nestempapp_backend.dao.LeaveCountDao;
+import com.example.nestempapp_backend.dao.LogDao;
 import com.example.nestempapp_backend.model.Admin;
+import com.example.nestempapp_backend.model.LeaveCount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.ldap.PagedResultsControl;
+import java.time.Year;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +19,25 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private AdminDao dao;
+
+    @Autowired
+    private LeaveCountDao daolc;
+
+    int year= Year.now().getValue();
+
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/addemployee",consumes = "application/json",produces = "application/json")
     public HashMap<String, String> EmployeeAdd(@RequestBody Admin a) {
         dao.save(a);
         HashMap<String, String> status = new HashMap<>();
         status.put("id",String.valueOf(a.getId()));
+        LeaveCount l=new LeaveCount();
+        l.setEmpId(a.getId());
+        l.setCasualLeave(20);
+        l.setSickLeave(7);
+        l.setSpecialLeave(3);
+        l.setYear(String.valueOf(year));
+        daolc.save(l);
         status.put("status", "success");
         return status;
 
